@@ -12,22 +12,26 @@ jobs:
         run: choco install ngrok -y
 
       - name: Set ngrok token
-        run: ngrok config add-authtoken 3DfjDrFbLi3F2YVzBmRw6wnVrfJ_Ke9xCipMN7xMZUcKrPDo
+        run: ngrok config add-authtoken TU_TOKEN
 
-      - name: Create/Reset RDP User
-        shell: cmd
+      - name: Configure RDP
+        shell: powershell
         run: |
-          net user runneradmin NewPass456!
+          net user runneradmin MyWin2026!
           net localgroup administrators runneradmin /add
-          exit /b 0
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+          Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
-      - name: Start ngrok tunnel
+      - name: Start ngrok
         shell: powershell
         run: |
           Start-Process ngrok -ArgumentList "tcp 3389"
-          Start-Sleep -Seconds 15
+          Start-Sleep -Seconds 20
           Invoke-RestMethod http://127.0.0.1:4040/api/tunnels
 
       - name: Keep alive
-        shell: cmd
-        run: ping -t localhost
+        shell: powershell
+        run: |
+          while ($true) {
+            Start-Sleep -Seconds 60
+          }
