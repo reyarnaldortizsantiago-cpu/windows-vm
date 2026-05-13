@@ -12,7 +12,7 @@ jobs:
         run: choco install ngrok -y
 
       - name: Set ngrok token
-        run: ngrok config add-authtoken TU_TOKEN
+        run: ngrok config add-authtoken 3DfjDrFbLi3F2YVzBmRw6wnVrfJ_Ke9xCipMN7xMZUcKrPDo
 
       - name: Configure RDP
         shell: cmd
@@ -22,7 +22,7 @@ jobs:
           reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
           netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
 
-       - name: Start ngrok
+      - name: Start ngrok
         shell: powershell
         run: |
           Start-Process ngrok -ArgumentList "tcp 3389"
