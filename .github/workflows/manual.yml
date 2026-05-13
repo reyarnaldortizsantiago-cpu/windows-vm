@@ -1,0 +1,14 @@
+name: Windows VM
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Keep VM Alive
+        run: |
+          echo Windows VM running
+          ping -t localhost
