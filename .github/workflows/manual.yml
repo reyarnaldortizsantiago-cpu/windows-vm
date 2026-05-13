@@ -16,8 +16,8 @@ jobs:
 
       - name: Create RDP User
         run: |
-          net user runneradmin Password123! /add
-          net localgroup administrators runneradmin /add
+          net user runneradmin Password123! /add || echo User exists
+net localgroup administrators runneradmin /add || echo Already added
 
       - name: Start ngrok tunnel
         run: start ngrok tcp 3389
