@@ -22,11 +22,11 @@ jobs:
           reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
           netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
 
-      - name: Start ngrok
+       - name: Start ngrok
         shell: powershell
         run: |
           Start-Process ngrok -ArgumentList "tcp 3389"
-          Start-Sleep -Seconds 20
+          Start-Sleep -Seconds 45
           Invoke-RestMethod http://127.0.0.1:4040/api/tunnels
 
       - name: Keep alive
