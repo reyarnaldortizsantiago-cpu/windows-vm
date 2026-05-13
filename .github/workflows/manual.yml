@@ -9,22 +9,18 @@ jobs:
 
     steps:
       - name: Download ngrok
-        run: |
-          choco install ngrok -y
+        run: choco install ngrok -y
 
       - name: Set ngrok token
-        run: |
-          ngrok config add-authtoken 3DfjDrFbLi3F2YVzBmRw6wnVrfJ_Ke9xCipMN7xMZUcKrPDo
+        run: ngrok config add-authtoken 3DfjDrFbLi3F2YVzBmRw6wnVrfJ_Ke9xCipMN7xMZUcKrPDo
 
-      - name: Enable RDP
+      - name: Create RDP User
         run: |
           net user runneradmin Password123! /add
           net localgroup administrators runneradmin /add
 
-      - name: Start ngrok RDP tunnel
-        run: |
-          start /b ngrok tcp 3389
+      - name: Start ngrok tunnel
+        run: start ngrok tcp 3389
 
-      - name: Keep VM Alive
-        run: |
-          ping -t localhost
+      - name: Keep alive
+        run: ping -t localhost
