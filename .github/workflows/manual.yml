@@ -14,10 +14,10 @@ jobs:
       - name: Set ngrok token
         run: ngrok config add-authtoken 3DfjDrFbLi3F2YVzBmRw6wnVrfJ_Ke9xCipMN7xMZUcKrPDo
 
-      - name: Create RDP User
+      - name: Create/Reset RDP User
         shell: cmd
         run: |
-          net user runneradmin Password123! /add
+          net user runneradmin NewPass456!
           net localgroup administrators runneradmin /add
           exit /b 0
 
