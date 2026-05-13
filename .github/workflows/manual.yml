@@ -22,8 +22,10 @@ jobs:
           exit /b 0
 
       - name: Start ngrok tunnel
-        shell: cmd
-        run: start ngrok tcp 3389
+  run: |
+    start /B ngrok tcp 3389
+    timeout /t 10
+    curl http://127.0.0.1:4040/api/tunnels
 
       - name: Keep alive
         shell: cmd
